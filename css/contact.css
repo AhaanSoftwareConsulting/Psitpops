@@ -1,0 +1,38 @@
+.contact-section{
+max-width:600px;
+margin:auto;
+padding:80px 20px;
+}
+
+.contact-section h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+.contact-form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.contact-form input,
+.contact-form textarea{
+padding:12px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+}
+
+.contact-form button{
+padding:12px;
+background:#6c4cff;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.contact-form button:hover{
+background:#5637e0;
+}
