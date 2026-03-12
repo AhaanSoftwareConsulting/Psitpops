@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 });
+
+
+
 async function loadComponent(id, file) {
 
   const res = await fetch(file);
@@ -60,3 +63,5 @@ loadComponent("header", "/components/header.html");
 loadComponent("footer", "/components/footer.html");
 loadComponent('banner', '/layouts/home/banner.html');
 loadComponent('featured', '/layouts/home/featured.html');
+loadComponent('floating', '/layouts/home/floating.html')
+loadComponent('announcement', '/layouts/home/announcement.html')
