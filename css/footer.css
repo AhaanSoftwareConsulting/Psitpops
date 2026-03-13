@@ -33,7 +33,7 @@
 .marquee {
     display: flex;
     width: max-content;
-    animation: marquee 18s linear infinite;
+    animation: marquee 8s linear infinite;
 }
  
 @keyframes marquee {
@@ -42,7 +42,7 @@
     }
  
     100% {
-        transform: translateX(-50%);
+        transform: translate(-40%);
     }
 }
  
