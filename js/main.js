@@ -21,6 +21,8 @@ async function initPage(){
   await loadComponent("featured", "/layouts/home/featured.html");
  
   await loadComponent("footer", "/components/footer.html");
+
+  initHeader();
  
  
   // All layout loaded → run blog api
