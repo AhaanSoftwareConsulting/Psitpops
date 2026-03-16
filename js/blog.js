@@ -30,10 +30,15 @@ post._embedded["wp:term"][0][0].name;
  
 clone.querySelector(".post-title").innerHTML =
 post.title.rendered;
- 
 const excerpt = post.excerpt.rendered
 .replace(/\[.*?\]/g,"")
-.replace(/<[^>]*>/g,"");
+.replace(/<[^>]*>/g,"")
+.trim()
+.split(/\s+/)
+.slice(0,100)
+.join(" ") + "...";
+
+clone.querySelector(".post-excerpt").innerText = excerpt;
  
 clone.querySelector(".post-excerpt").innerText = excerpt;
  

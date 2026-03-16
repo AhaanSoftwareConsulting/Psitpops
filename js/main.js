@@ -34,6 +34,8 @@ async function initPage() {
   await loadComponent("Scripture", "/layouts/about/Scripture.html");
  
   await loadComponent("footer", "/components/footer.html");
+
+  initHeader();
  
   // Run header JS after header loads
   if (typeof initHeader === "function") {
