@@ -32,6 +32,7 @@ async function initPage() {
   await loadComponent("find", "/layouts/about/find.html");
   await loadComponent("vision", "/layouts/about/vision.html");
   await loadComponent("Scripture", "/layouts/about/Scripture.html");
+  await loadComponent("faith", "/layouts/about/faith.html");
  
   await loadComponent("footer", "/components/footer.html");
 
