@@ -27,6 +27,9 @@ async function initPage() {
 
 
   await loadComponent("topicBanner", "/layouts/topic/topic-banner.html");
+
+  await loadComponent("alltopicBanner", "/layouts/topic/all-topic-banner.html");
+  
   await loadComponent("contact-banner", "/layouts/contact/contact-banner.html");
 
   await loadComponent("contact-cards", "/layouts/contact/contact-cards.html");
