@@ -4,3 +4,10 @@
   --font-darker: "Darker Grotesque", sans-serif;
   --font-dm: "DM Sans", sans-serif;
 }
+
+#blogContent h3 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
