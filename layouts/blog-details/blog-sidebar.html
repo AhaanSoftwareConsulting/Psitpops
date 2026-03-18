@@ -1,14 +1,29 @@
 <div class="space-y-6">
   <!-- SEARCH -->
-  <div class="bg-white rounded-xl shadow p-5 border border-[#1F2A4480]">
-    <h3 class="font-semibold mb-6 border-b-1 border-[#1F2A4480] text-xl md:text-[29px] font-darker">Search Blog</h3>
+<div class="bg-white rounded-xl shadow p-5 border border-[#1F2A4480] relative">
+  <h3 class="font-semibold mb-6 border-b border-[#1F2A4480] text-xl md:text-[29px] font-darker">
+    Search Blog
+  </h3>
 
-    <div class="flex gap-[10px]">
-      <input id="searchBlog" class="border border-[#1F2A4480] rounded-[10px] px-5 py-3 w-full focus:border-[#C9A227]"" placeholder="Search by title" />
+  <div class="flex gap-[10px] relative">
+    
+    <input 
+      id="searchBlog" 
+      class="border border-[#1F2A4480] rounded-[10px] px-5 py-3 w-full focus:border-[#C9A227]" 
+      placeholder="Search by title" 
+    />
 
-      <button class="bg-[#C9A227] text-white px-[30px] py-[15px] rounded-[10px]">Search</button>
-    </div>
+    <button id="searchBtn" type="button" class="bg-[#C9A227] text-white px-[30px] py-[15px] rounded-[10px] cursor-pointer">
+      Search
+    </button>
+
+    <!-- Suggestions -->
+    <div id="suggestions" 
+  class="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-xl mt-2 hidden z-50 shadow-lg overflow-hidden">
+</div>
+
   </div>
+</div>
 
   <!-- WEEKLY DEVOTION -->
   <div class="bg-white rounded-xl shadow p-5 border border-[#1F2A4480]">
@@ -112,7 +127,7 @@
     <div id="recentPosts" class="space-y-4"></div>
   </div>
 
-  <!-- SOCIAL MEDIA ICONS -->
+  
   <div class="bg-white rounded-xl shadow p-5 border border-[#1F2A4480]">
     <h3 class="font-semibold mb-6 border-b-1 border-[#1F2A4480] text-xl md:text-[29px] font-darker">FOLLOW US</h3>
 
