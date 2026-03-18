@@ -96,6 +96,7 @@ document.addEventListener("keypress", function (e) {
 }
 
 
+
 //  WAIT FOR DYNAMIC CONTENT
 window.addEventListener("load", () => {
   setTimeout(initSearch, 500); // wait for sidebar render
