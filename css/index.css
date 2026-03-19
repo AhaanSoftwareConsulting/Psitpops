@@ -17,3 +17,22 @@
   margin-top: 16px;
   margin-bottom: 7px;
 }
+
+/* Paragraph font */
+#blogContent p,
+#blogContent li {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Heading font */
+#blogContent h1,
+#blogContent h2,
+#blogContent h3,
+#blogContent h4,
+#blogContent h5,
+#blogContent h6 {
+  font-family: 'Darker Grotesque', sans-serif;
+  color: #1F2A44;
+  font-weight: 700;
+  font-size: 45px;
+}
