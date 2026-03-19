@@ -204,7 +204,7 @@ viewBox="0 0 24 24">
 
 <hr class="mb-4">
 
-<h3 class="text-[20px] font-semibold text-[#1F2A44] mb-2 leading-snug">
+<h3 class="text-[20px] font-darker font-semibold text-[#1F2A44] mb-2 leading-snug">
 ${item.title.rendered}
 </h3>
 
