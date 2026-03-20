@@ -3,45 +3,37 @@ const domain = "https://psitpops.ahaanmedia.com/cms/wp-json/wp/v2";
 const params = new URLSearchParams(window.location.search);
 const postId = params.get("id");
 
-const waitLayout = setInterval(()=>{
+const waitLayout = setInterval(() => {
+  const blogTitle = document.getElementById("blogTitle");
+  const blogImage = document.getElementById("blogImage");
+  const blogContent = document.getElementById("blogContent");
 
-const blogTitle = document.getElementById("blogTitle");
-const blogImage = document.getElementById("blogImage");
-const blogContent = document.getElementById("blogContent");
+  if (!blogTitle) return;
 
-if(!blogTitle) return;
+  clearInterval(waitLayout);
 
-clearInterval(waitLayout);
+  fetch(`${domain}/posts/${postId}?_embed`)
+    .then((res) => res.json())
+    .then((post) => {
+      blogTitle.innerHTML = post.title.rendered;
 
-fetch(`${domain}/posts/${postId}?_embed`)
-.then(res => res.json())
-.then(post => {
+      if (post._embedded["wp:featuredmedia"]) {
+        blogImage.src = post._embedded["wp:featuredmedia"][0].source_url;
+      }
 
-blogTitle.innerHTML = post.title.rendered;
+      blogContent.innerHTML = post.content.rendered;
 
-if(post._embedded["wp:featuredmedia"]){
+      /* AUTHOR + DATE */
 
-blogImage.src =
-post._embedded["wp:featuredmedia"][0].source_url;
+      const author = post._embedded.author[0].name;
 
-}
+      const date = new Date(post.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
 
-blogContent.innerHTML =
-post.content.rendered;
-
-/* AUTHOR + DATE */
-
-const author =
-post._embedded.author[0].name;
-
-const date =
-new Date(post.date).toLocaleDateString("en-US",{
-year:"numeric",
-month:"long",
-day:"numeric"
-});
-
-blogMeta.innerHTML = `
+      blogMeta.innerHTML = `
 <div class="flex items-center gap-6 text-[#b9973e] text-sm">
 
   <div class=" flex items-center gap-2 font-medium text-[#C9A227]">
@@ -115,43 +107,37 @@ blogMeta.innerHTML = `
 </div>
 `;
 
-/* RELATED POSTS */
+      /* RELATED POSTS */
 
-const categoryId = post.categories[0];
+      const categoryId = post.categories[0];
 
-fetch(`${domain}/posts?_embed&categories=${categoryId}&per_page=3`)
-.then(res => res.json())
-.then(posts => {
+      fetch(`${domain}/posts?_embed&categories=${categoryId}&per_page=3`)
+        .then((res) => res.json())
+        .then((posts) => {
+          const container = document.getElementById("relatedPosts");
 
-const container = document.getElementById("relatedPosts");
+          if (!container) return;
 
-if(!container) return;
+          container.innerHTML = "";
 
-container.innerHTML = "";
+          posts.forEach((item) => {
+            if (item.id == postId) return;
 
-posts.forEach(item => {
+            const image = item._embedded["wp:featuredmedia"][0].source_url;
 
-if(item.id == postId) return;
+            const author = item._embedded.author[0].name;
 
-const image =
-item._embedded["wp:featuredmedia"][0].source_url;
+            const date = new Date(item.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
 
-const author =
-item._embedded.author[0].name;
+            let excerpt = item.excerpt.rendered.replace(/(<([^>]+)>)/gi, "");
 
-const date =
-new Date(item.date).toLocaleDateString("en-US",{
-year:"numeric",
-month:"long",
-day:"numeric"
-});
+            excerpt = excerpt.split(" ").slice(0, 20).join(" ");
 
-let excerpt =
-item.excerpt.rendered.replace(/(<([^>]+)>)/gi,"");
-
-excerpt = excerpt.split(" ").slice(0,20).join(" ");
-
-container.innerHTML += `
+            container.innerHTML += `
 
 <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
 
@@ -160,7 +146,7 @@ container.innerHTML += `
 <img src="${image}" 
 class="w-full h-[200px] object-cover">
 
-<span class="absolute top-3 left-3 bg-[#d6a21c] text-white text-xs px-3 py-1 rounded-full">
+<span class="absolute top-3 left-3 bg-[#d6a21c] text-white uppercase font-bold text-xs px-3 py-1 rounded-full">
 ${item._embedded["wp:term"][0][0].name}
 </span>
 
@@ -248,7 +234,11 @@ ${item._embedded["wp:term"][0][0].name}
 
 <hr class="mb-4">
 
+<<<<<<< HEAD
 <h3 class="text-[20px] font-darker font-semibold text-[#1F2A44] mb-2 leading-snug">
+=======
+<h3 class="text-[20px] font-bold text-[#1F2A44] mb-2 leading-tight">
+>>>>>>> c4385c1c5e12a4b9579f342d14619e6cd1ba0521
 ${item.title.rendered}
 </h3>
 
@@ -266,41 +256,38 @@ Read More
 </div>
 
 `;
+          });
 
-});
+          /* BLOG TOPICS */
 
-/* BLOG TOPICS */
+          fetch(`${domain}/categories`)
+            .then((res) => res.json())
+            .then((categories) => {
+              const container = document.getElementById("blogTopics");
 
-fetch(`${domain}/categories`)
-.then(res => res.json())
-.then(categories => {
+              if (!container) return;
 
-const container = document.getElementById("blogTopics");
+              container.innerHTML = "";
 
-if(!container) return;
+              /* ONLY THESE TOPICS */
 
-container.innerHTML = "";
+              const allowedTopics = [
+                "Bible Study",
+                "Christian Living",
+                "Devotions",
+                "Faith",
+                "Hope",
+                "Prayer",
+              ];
 
-/* ONLY THESE TOPICS */
-
-const allowedTopics = [
-"Bible Study",
-"Christian Living",
-"Devotions",
-"Faith",
-"Hope",
-"Prayer"
-];
-
-categories
-.filter(cat => allowedTopics.includes(cat.name))
-.forEach(cat => {
-
-container.innerHTML += `
+              categories
+                .filter((cat) => allowedTopics.includes(cat.name))
+                .forEach((cat) => {
+                  container.innerHTML += `
 
 <li>
 <a href="category.html?id=${cat.id}&name=${cat.name}"
-class="flex items-center gap-3 hover:text-[#C9A227] transition">
+class="flex items-center gap-3 hover:text-[#C9A227] transition ">
 
 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M9.75 0C7.82164 0 5.93657 0.571828 4.33319 1.64317C2.72982 2.71451 1.48013 4.23726 0.742179 6.01884C0.00422452 7.80042 -0.188858 9.76082 0.187348 11.6521C0.563554 13.5434 1.49215 15.2807 2.85571 16.6443C4.21928 18.0079 5.95656 18.9365 7.84787 19.3127C9.73919 19.6889 11.6996 19.4958 13.4812 18.7578C15.2627 18.0199 16.7855 16.7702 17.8568 15.1668C18.9282 13.5634 19.5 11.6784 19.5 9.75C19.4973 7.16498 18.4692 4.68661 16.6413 2.85872C14.8134 1.03084 12.335 0.00272983 9.75 0ZM14.0306 8.03063L8.78063 13.2806C8.71097 13.3504 8.62826 13.4057 8.53721 13.4434C8.44616 13.4812 8.34857 13.5006 8.25 13.5006C8.15144 13.5006 8.05385 13.4812 7.9628 13.4434C7.87175 13.4057 7.78903 13.3504 7.71938 13.2806L5.46938 11.0306C5.32865 10.8899 5.24959 10.699 5.24959 10.5C5.24959 10.301 5.32865 10.1101 5.46938 9.96937C5.61011 9.82864 5.80098 9.74958 6 9.74958C6.19903 9.74958 6.3899 9.82864 6.53063 9.96937L8.25 11.6897L12.9694 6.96937C13.0391 6.89969 13.1218 6.84442 13.2128 6.8067C13.3039 6.76899 13.4015 6.74958 13.5 6.74958C13.5986 6.74958 13.6961 6.76899 13.7872 6.8067C13.8782 6.84442 13.9609 6.89969 14.0306 6.96937C14.1003 7.03906 14.1556 7.12178 14.1933 7.21283C14.231 7.30387 14.2504 7.40145 14.2504 7.5C14.2504 7.59855 14.231 7.69613 14.1933 7.78717C14.1556 7.87822 14.1003 7.96094 14.0306 8.03063Z" fill="#C9A227"/>
@@ -309,35 +296,30 @@ class="flex items-center gap-3 hover:text-[#C9A227] transition">
 
 </span>
 
-<span class="font-medium text-xl text-[#1F2A44]">${cat.name}</span>
+<span class=" text-xl text-[#1F2A44] font-darker font-extrabold">${cat.name}</span>
 
 </a>
 </li>
 
 `;
+                });
+            });
 
-});
+          /* RECENT POSTS */
 
-});
+          fetch(`${domain}/posts?_embed&per_page=4`)
+            .then((res) => res.json())
+            .then((posts) => {
+              const container = document.getElementById("recentPosts");
 
-/* RECENT POSTS */
+              if (!container) return;
 
-fetch(`${domain}/posts?_embed&per_page=4`)
-.then(res => res.json())
-.then(posts => {
+              container.innerHTML = "";
 
-const container = document.getElementById("recentPosts");
+              posts.forEach((post) => {
+                const image = post._embedded["wp:featuredmedia"][0].source_url;
 
-if(!container) return;
-
-container.innerHTML = "";
-
-posts.forEach(post => {
-
-const image =
-post._embedded["wp:featuredmedia"][0].source_url;
-
-container.innerHTML += `
+                container.innerHTML += `
 
 <div class="flex gap-3">
 
@@ -360,29 +342,24 @@ Read More
 </div>
 
 `;
+              });
+            });
 
-});
+          /* FEATURED ARTICLES */
 
-});
+          fetch(`${domain}/posts?_embed&per_page=5`)
+            .then((res) => res.json())
+            .then((posts) => {
+              const container = document.getElementById("sidebarPosts");
 
-/* FEATURED ARTICLES */
+              if (!container) return;
 
-fetch(`${domain}/posts?_embed&per_page=5`)
-.then(res => res.json())
-.then(posts => {
+              container.innerHTML = "";
 
-const container = document.getElementById("sidebarPosts");
+              posts.forEach((post) => {
+                const image = post._embedded["wp:featuredmedia"][0].source_url;
 
-if(!container) return;
-
-container.innerHTML = "";
-
-posts.forEach(post => {
-
-const image =
-post._embedded["wp:featuredmedia"][0].source_url;
-
-container.innerHTML += `
+                container.innerHTML += `
 
 <div class="flex gap-3 items-start">
 
@@ -405,14 +382,8 @@ Read More
 </div>
 
 `;
-
-});
-
-});
-
-});
-
-});
-
-},100);
-
+              });
+            });
+        });
+    });
+}, 100);
