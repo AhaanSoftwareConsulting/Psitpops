@@ -155,15 +155,6 @@ document.addEventListener("submit", function(e){
 captchaWrapper.classList.add("hidden");
 captchaVisible = false;
 
-console.log("📦 Form Data:", {
-  firstname: fname.value,
-  lastname: lname.value,
-  email: email.value,
-  phone: phone.value,
-  interest: select.value,
-  captcha: captcha.value
-});
-
 // ✅ prevent infinite loop
 e.target.removeEventListener("submit", arguments.callee);
 form.submit();
