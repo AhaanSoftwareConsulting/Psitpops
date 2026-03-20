@@ -72,14 +72,19 @@
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden bg-slate-900/75 backdrop-blur-xl border-t border-white/10 sm:hidden">
+ <div id="mobile-menu" 
+     class="fixed inset-y-0 right-0 z-50 w-64 bg-slate-900/95 backdrop-blur-xl border-l border-white/10 transform translate-x-full transition-transform duration-300 ease-in-out sm:hidden">
+    
     <div class="p-6 flex flex-col gap-4 text-center">
-      <a href="/" class="text-lg font-medium text-white py-2 border-b border-white/5">Home</a>
-      <a href="/about.html" class="text-lg font-medium text-white/70 py-2 border-b border-white/5">About</a>
-      <a href="/all-blogs.html" class="text-lg font-medium text-white/70 py-2 border-b border-white/5">Blog</a>
-      <a href="/contact.html" class="text-lg font-medium text-white/70 py-2">Contact</a>
+        <button id="close-menu" class="text-white text-right mb-4">✕</button>
+        
+        <a href="/" class="text-lg font-medium text-white py-2 border-b border-white/5">Home</a>
+        <a href="/about.html" class="text-lg font-medium text-white/70 py-2 border-b border-white/5">About</a>
+        <a href="/all-blogs.html" class="text-lg font-medium text-white/70 py-2 border-b border-white/5">Blog</a>
+        <a href="/contact.html" class="text-lg font-medium text-white/70 py-2">Contact</a>
     </div>
+</div>
 
-  </div>
+<div id="menu-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
 
 </header>

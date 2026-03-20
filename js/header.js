@@ -53,4 +53,16 @@ function initHeader() {
     };
   }
 }
+const menu = document.getElementById('mobile-menu');
+const overlay = document.getElementById('menu-overlay');
+const openBtn = document.getElementById('your-hamburger-button-id'); // Replace with your actual button ID
+const closeBtn = document.getElementById('close-menu');
 
+function toggleMenu() {
+    menu.classList.toggle('translate-x-full');
+    overlay.classList.toggle('hidden');
+}
+
+openBtn.addEventListener('click', toggleMenu);
+closeBtn.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu); // Closes menu when clicking outside
