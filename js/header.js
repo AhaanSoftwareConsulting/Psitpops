@@ -49,11 +49,7 @@ function initHeader() {
 }
 
   // MOBILE MENU
-  if (mobileBtn && mobileMenu) {
-    mobileBtn.onclick = () => {
-      mobileMenu.classList.toggle("hidden");
-    };
-  }
+
   function toggleMenu() {
     mobileMenu.classList.toggle("translate-x-full");
     overlay.classList.toggle("hidden");
