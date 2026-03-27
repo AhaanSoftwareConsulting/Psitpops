@@ -190,3 +190,11 @@
     animation: floatSmooth 4s ease-in-out infinite;
     display: inline-block;
 }
+
+/* Tablet view */
+@media (max-width: 767px) {
+  .connector {
+    transform: rotate(90deg);
+    transform-origin: center;
+  }
+}
